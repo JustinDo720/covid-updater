@@ -1,7 +1,7 @@
 <template>
   <div class='grid-container'>
     <div class="card blue-grey darken-1 middleGrid" style="width:300px; margin:40px auto;">
-      <div class="card-content white-text">
+      <div class="card-content white-text" style='padding:80px;'>
         <span class="card-title">{{ ChildCovidInfo['Country'] }}, {{ChildCovidInfo['TwoLetterSymbol'].toUpperCase()}}</span>
         <p>
           Total Cases: {{ChildCovidInfo['TotalCases']}}
@@ -19,9 +19,7 @@
           Active Cases: {{ChildCovidInfo['ActiveCases']}}
         </p>
       </div>
-
     </div>
-
   </div>
 </template>
 <script>
@@ -36,16 +34,7 @@ export default{
   data(){
     return{
       ChildCovidInfo: this.covidInfo,
-      msg: 'Hello'
     }
-  },
-  methods:{
-    initializeSetup: function(){
-      console.log(this.ChildLocationInfo)
-    }
-  },
-  created(){
-    this.initializeSetup()
   }
 }
 </script>

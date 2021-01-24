@@ -1,40 +1,48 @@
 <template>
   <nav>
-    <div id='title' class='main_title nav-wrapper'>
-      <a href='/' class='brand-logo center'>{{ project_title }}</a>
+    <div id='title' class='main_title nav-wrapper blue darken-3'>
+      <a href='/'
+         class='brand-logo center'
+         style='font-size:2.0 rem;'
+      >
+        {{ project_title }}
+      </a>
     </div>
   </nav>
   <div id='home_page' class='app_grid' v-if='!show_info'>
-    <div class='grey lighten-3 middleGrid'>
+    <div class='light-blue darken-4 middleGrid'>
       <div style='padding: 20px;'>
-        <label>Continent Select</label>
+        <label>Select Continent</label>
         <!-- Display was blocked by default by materialize css-->
         <select style='display:block;' v-model='current_user_continent'>
           <option value="" disabled selected>Choose Continent</option>
-          <option v-for="(continent, key) in two_continents" :key='key' @click='serveLocation'>
+          <option v-for="(continent, key) in two_continents"
+                  :key='key'
+                  @click='serveLocation'
+          >
             {{continent}}
           </option>
         </select>
       </div>
       <div id='show_location'
-           class='cyan lighten-4 individual_location'
+           class=' lime lighten-5 individual_location'
            >
-        <div id='individual_countries' v-if='user_continent'>
+        <div id='show_countries' v-if='user_continent'>
           <a v-for='(country, index) in covid_cases'
              :key=index
              href='#'
              @click='sendInfo(index)'
-
+             class='black-text'
           >
-            <p>
+            <p class='individual_countries'>
               {{ country['Country'] }}
             </p>
           </a>
         </div>
         <div v-else>
-          <h4 style='margin:50px;'>
+          <h5 style='margin:50px;'>
             Please Select Your Continent Above
-          </h4>
+          </h5>
         </div>
       </div>
     </div>
@@ -58,7 +66,7 @@ export default {
     return{
       current_user_continent: '', // We will use this to update our user_city
       user_continent: '',
-      project_title: 'COVID CASES',
+      project_title: 'Covid-19: Asia & South America Updater',
       covid_cases: [],
       show_info: false,
       selectedInfo: '',
@@ -139,4 +147,10 @@ export default {
   overflow-x: hidden;
 }
 
+.individual_countries{
+  border: 1px solid black;
+  border-radius: 5%;
+  padding: 20px;
+  box-shadow: 10px 5px 5px rgba(0,0,0, .2)
+}
 </style>
