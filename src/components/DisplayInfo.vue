@@ -1,12 +1,27 @@
 <template>
-  <div>
-    {{ ChildCovidInfo }}
-    <p>
-      Country: {{ ChildCovidInfo['Country'] }}
-    </p>
-    <p>
+  <div class='grid-container'>
+    <div class="card blue-grey darken-1 middleGrid" style="width:300px; margin:40px auto;">
+      <div class="card-content white-text">
+        <span class="card-title">{{ ChildCovidInfo['Country'] }}, {{ChildCovidInfo['TwoLetterSymbol'].toUpperCase()}}</span>
+        <p>
+          Total Cases: {{ChildCovidInfo['TotalCases']}}
+        </p>
+        <p>
+          New Cases: {{ChildCovidInfo['NewCases']}}
+        </p>
+        <p>
+          Total Deaths: {{ChildCovidInfo['TotalDeaths']}}
+        </p>
+        <p>
+          New Deaths: {{ChildCovidInfo['NewDeaths']}}
+        </p>
+        <p>
+          Active Cases: {{ChildCovidInfo['ActiveCases']}}
+        </p>
+      </div>
 
-    </p>
+    </div>
+
   </div>
 </template>
 <script>
@@ -34,4 +49,15 @@ export default{
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+
+.grid-container{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.middleGrid{
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+</style>

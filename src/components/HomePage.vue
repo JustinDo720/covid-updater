@@ -1,28 +1,41 @@
 <template>
-  <div id='home_page' class='app_grid' v-if='!show_info'>
-    <div id='title' class='main_title'>
-      <h3>
-        {{ project_title }}
-      </h3>
+  <nav>
+    <div id='title' class='main_title nav-wrapper'>
+      <a href='/' class='brand-logo center'>{{ project_title }}</a>
     </div>
+  </nav>
+  <div id='home_page' class='app_grid' v-if='!show_info'>
     <div class='grey lighten-3 middleGrid'>
-      <div id='search_field' style='padding: 20px;'>
-        <input
-            placeholder='Enter your country here!'
-            v-model= current_user_city
-            @keyup.enter = 'serveLocation'
-        >
+      <div style='padding: 20px;'>
+        <label>Continent Select</label>
+        <!-- Display was blocked by default by materialize css-->
+        <select style='display:block;' v-model='current_user_continent'>
+          <option value="" disabled selected>Choose Continent</option>
+          <option v-for="(continent, key) in two_continents" :key='key' @click='serveLocation'>
+            {{continent}}
+          </option>
+        </select>
       </div>
-      <div id='show_location' class='cyan lighten-4 individual_location' >
-        <a v-for='(country, index) in covid_cases'
-           :key=index
-           href='#'
-           @click='sendInfo(index)'
-        >
-          <p>
-            {{ country['Country'] }}
-          </p>
-        </a>
+      <div id='show_location'
+           class='cyan lighten-4 individual_location'
+           >
+        <div id='individual_countries' v-if='user_continent'>
+          <a v-for='(country, index) in covid_cases'
+             :key=index
+             href='#'
+             @click='sendInfo(index)'
+
+          >
+            <p>
+              {{ country['Country'] }}
+            </p>
+          </a>
+        </div>
+        <div v-else>
+          <h4 style='margin:50px;'>
+            Please Select Your Continent Above
+          </h4>
+        </div>
       </div>
     </div>
   </div>
@@ -43,21 +56,22 @@ export default {
   },
   data(){
     return{
-      current_user_city: '', // We will use this to update our user_city
-      user_city: '',
+      current_user_continent: '', // We will use this to update our user_city
+      user_continent: '',
       project_title: 'COVID CASES',
       covid_cases: [],
       show_info: false,
-      selectedInfo: ''
+      selectedInfo: '',
+      two_continents: ['Asia', 'South America']
 
     }
   },
   methods:{
-    serveLocation: function(){
-      // e.g 'http://api.fightpoverty.online/api/charity?q={%22filters%22:[{%22name%22:%22city%22,%22op%22:%22has%22,%22val%22:{%22name%22:%22name%22,%22op%22:%22like%22,%22val%22:%22%25incol%25%22}}]}'
-      this.user_city = this.current_user_city
+    async serveLocation(){
+      this.user_continent = this.current_user_continent
       const options = {
         method: 'GET',
+        // Url for asia
         url: 'https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/asia',
         headers: {
           'x-rapidapi-key': process.env.VUE_APP_API_KEY,
@@ -65,7 +79,11 @@ export default {
         }
       };
 
-      axios.request(options).then(response => {
+      if(this.user_continent === 'South America'){
+        options['url'] = 'https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/southamerica'
+        options['headers']['x-rapidapi-host'] = 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com'
+      }
+      await axios.request(options).then(response => {
         let total_items = []
         for(let item in response.data){
           total_items.push(response.data[item])
@@ -81,7 +99,7 @@ export default {
       console.log(this.covid_cases[curr_selection])
       this.selectedInfo = this.covid_cases[curr_selection]
     }
-  }
+  },
 
 };
 </script>
@@ -92,7 +110,6 @@ export default {
 .app_grid{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  background:#e1f5fe;
 }
 
 .main_title{
@@ -106,17 +123,20 @@ export default {
   grid-column-start: 2;
   grid-row-start: 2;
   width: 600px;
-  height: 500px;
+  height: 700px;
   border-radius: 5%;
+  margin: 20px auto;
 }
 
 .individual_location{
   margin: 30px auto;
   text-align:center;
   padding: 10px;
+  height: 500px;
   max-height: 500px;
   max-width: 300px;
   overflow: scroll;
   overflow-x: hidden;
 }
+
 </style>
