@@ -8,12 +8,12 @@
     <div class='grey lighten-3 middleGrid'>
       <div id='search_field' style='padding: 20px;'>
         <input
-            placeholder='Enter your city here!'
+            placeholder='Enter your country here!'
             v-model= current_user_city
             @keyup.enter = 'serveLocation'
         >
       </div>
-      <div id='show_location' class='red lighten-1 individual_location' >
+      <div id='show_location' class='cyan lighten-4 individual_location' >
         <a v-for='(country, index) in covid_cases'
            :key=index
            href='#'
@@ -92,18 +92,22 @@ export default {
 .app_grid{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  background:#e1f5fe;
 }
 
 .main_title{
   grid-column-start: 2;
   grid-row-start: 1;
   text-align: center;
+  color: #01579b;
 }
 
 .middleGrid{
   grid-column-start: 2;
   grid-row-start: 2;
   width: 600px;
+  height: 500px;
+  border-radius: 5%;
 }
 
 .individual_location{
@@ -111,6 +115,7 @@ export default {
   text-align:center;
   padding: 10px;
   max-height: 500px;
+  max-width: 300px;
   overflow: scroll;
   overflow-x: hidden;
 }
