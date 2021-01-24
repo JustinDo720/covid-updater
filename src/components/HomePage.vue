@@ -60,7 +60,7 @@ export default {
         method: 'GET',
         url: 'https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/asia',
         headers: {
-          'x-rapidapi-key': process.env.VUE_APP_API_KEY,
+          'x-rapidapi-key': 'd1fc9f9a9amsh81f491160b1c02ep1bae70jsn83df86721a4a',
           'x-rapidapi-host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com'
         }
       };
@@ -110,7 +110,7 @@ export default {
   margin: 30px auto;
   text-align:center;
   padding: 10px;
-  max-height: 500px;
+  max-height: 600px;
   overflow: scroll;
   overflow-x: hidden;
 }
