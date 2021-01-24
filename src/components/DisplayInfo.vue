@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ChildLocationInfo}}
+    Hello
   </div>
 </template>
 <script>
