@@ -13,7 +13,7 @@
             @keyup.enter = 'serveLocation'
         >
       </div>
-      <div id='show_location' class='indigo lighten-4 individual_location' >
+      <div id='show_location' class='red lighten-1 individual_location' >
         <a v-for='(country, index) in covid_cases'
            :key=index
            href='#'
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div id='show_info_mode' v-if='show_info'>
-    <display-info parentlocation-info='Hello'></display-info>
+    <display-info :covid-info='selectedInfo'></display-info>
   </div>
 </template>
 

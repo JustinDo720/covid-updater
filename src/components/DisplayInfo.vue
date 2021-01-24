@@ -1,6 +1,12 @@
 <template>
   <div>
-    {{ChildLocationInfo}}
+    {{ ChildCovidInfo }}
+    <p>
+      Country: {{ ChildCovidInfo['Country'] }}
+    </p>
+    <p>
+
+    </p>
   </div>
 </template>
 <script>
@@ -8,13 +14,13 @@
 export default{
   name: 'DisplayInfo',
   props: {
-    ParentlocationInfo :{
-      type: String
+    covidInfo :{
+      type: Object
     }
   },
   data(){
     return{
-      ChildLocationInfo: this.ParentlocationInfo,
+      ChildCovidInfo: this.covidInfo,
       msg: 'Hello'
     }
   },
