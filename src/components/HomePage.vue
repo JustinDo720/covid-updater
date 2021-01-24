@@ -110,7 +110,7 @@ export default {
   margin: 30px auto;
   text-align:center;
   padding: 10px;
-  max-height: 600px;
+  max-height: 700px;
   overflow: scroll;
   overflow-x: hidden;
 }
